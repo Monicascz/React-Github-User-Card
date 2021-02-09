@@ -26,14 +26,25 @@ class App extends React.Component{
     })
   }
 
+  changeUserCard=(evt)=>{
+    evt.preventDefault();
+    axios.get(`https://api.github.com/users/${this.state.userText}`)
+    .then((resp)=>{
+      this.setState({
+        user: resp.data
+      })
+    })
+    .catch((err)=>{console.log(err)})
+  }
+  // const followersArray = ["monicascz", "tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
 
 
   render(){
-    console.log(this.state.user)
+    
     return(
       <div>
         <h1> Find your Github Usercard:</h1>
-        <form>
+        <form onSubmit= {this.changeUserCard}>
           <input value={this.state.userText} onChange={this.handleChange}/>
         </form>
         <div className="card">
